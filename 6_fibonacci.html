@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head><title>Fibonacci</title></head>
+<body>
+    <h2>Fibonacci Series:</h2>
+    <div id="result"></div>
+    <script>
+        let n1 = 0, n2 = 1, nextTerm;
+        let result = "0 1 ";
+        for (let i = 1; i <= 10; i++) {
+            nextTerm = n1 + n2;
+            result += nextTerm + " ";
+            n1 = n2;
+            n2 = nextTerm;
+        }
+        document.getElementById("result").innerHTML = result;
+    </script>
+</body>
+</html>

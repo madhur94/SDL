@@ -1,0 +1,17 @@
+<script>
+function validateForm() {
+    let name = document.forms["form"]["name"].value;
+    let phone = document.forms["form"]["phone"].value;
+    let email = document.forms["form"]["email"].value;
+    if (name == "" || phone.length != 10 || !email.includes("@")) {
+        alert("Validation Failed");
+        return false;
+    }
+}
+</script>
+<form name="form" onsubmit="return validateForm()">
+    Name: <input type="text" name="name"><br>
+    Phone: <input type="text" name="phone"><br>
+    Email: <input type="email" name="email"><br>
+    <input type="submit" value="Submit">
+</form>

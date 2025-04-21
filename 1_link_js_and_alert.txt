@@ -1,0 +1,40 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS Link Example</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <h1>Welcome to Life Stats</h1>
+    <p>This page shows an alert and calculates average human lifespan in weeks.</p>
+</body>
+</html>
+
+/* style.css */
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    padding: 20px;
+}
+
+/* script.js */
+alert("Welcome to the life statistics page!");
+const totalYears = 80;
+const weeksInYear = 52;
+const avgWeeks = totalYears * weeksInYear;
+console.log("Average number of weeks in a human lifetime:", avgWeeks);
+
+let greeting = "Hello World!";
+console.log(greeting);
+
+const hour = new Date().getHours();
+if (hour < 12) {
+    alert("Good Morning!");
+} else if (hour < 18) {
+    alert("Good Afternoon!");
+} else {
+    alert("Good Evening!");
+}

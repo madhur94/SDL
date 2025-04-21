@@ -1,0 +1,27 @@
+// Structure for Facebook Clone (PHP + MySQL)
+-- Database: facebook_clone
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100),
+    password VARCHAR(100)
+);
+
+// PHP Registration Code Sample
+<?php
+$conn = new mysqli("localhost", "root", "", "facebook_clone");
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = $_POST["name"];
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    $sql = "INSERT INTO users (name, email, password) VALUES ('$name', '$email', '$password')";
+    $conn->query($sql);
+}
+?>
+<form method="post">
+    Name: <input type="text" name="name"><br>
+    Email: <input type="email" name="email"><br>
+    Password: <input type="password" name="password"><br>
+    <input type="submit" value="Register">
+</form>

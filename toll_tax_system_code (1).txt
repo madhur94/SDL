@@ -1,0 +1,123 @@
+===== db.php =====
+<?php
+$conn = new mysqli("localhost", "root", "", "toll_db");
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+?>
+
+===== index.php =====
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Toll Tax System</title>
+</head>
+<body>
+    <h2>Toll Tax Management System</h2>
+    <a href="add.php">Add Toll Entry</a> | 
+    <a href="view.php">View Toll Records</a>
+</body>
+</html>
+
+===== add.php =====
+<?php include 'db.php'; ?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Entry</title>
+</head>
+<body>
+    <h2>Add Toll Entry</h2>
+    <form method="POST">
+        Vehicle Number: <input type="text" name="vno" required><br><br>
+        Vehicle Type: 
+        <select name="type">
+            <option value="Car">Car</option>
+            <option value="Truck">Truck</option>
+            <option value="Bus">Bus</option>
+        </select><br><br>
+        <input type="submit" name="submit" value="Add Entry">
+    </form>
+
+<?php
+if (isset($_POST['submit'])) {
+    $vno = $_POST['vno'];
+    $type = $_POST['type'];
+
+    // Simple toll rate logic
+    $amount = 0;
+    if ($type == "Car") $amount = 50;
+    else if ($type == "Truck") $amount = 100;
+    else if ($type == "Bus") $amount = 80;
+
+    $sql = "INSERT INTO toll_records (vehicle_number, vehicle_type, amount)
+            VALUES ('$vno', '$type', $amount)";
+    if ($conn->query($sql) === TRUE) {
+        echo "<p>Entry Added Successfully!</p>";
+    } else {
+        echo "<p>Error: " . $conn->error . "</p>";
+    }
+}
+?>
+</body>
+</html>
+
+===== view.php =====
+<?php include 'db.php'; ?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Toll Records</title>
+</head>
+<body>
+    <h2>Toll Collection Records</h2>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Vehicle Number</th>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Entry Time</th>
+        </tr>
+
+        <?php
+        $result = $conn->query("SELECT * FROM toll_records");
+        $total = 0;
+        while ($row = $result->fetch_assoc()) {
+            $total += $row['amount'];
+            echo "<tr>
+                    <td>{$row['id']}</td>
+                    <td>{$row['vehicle_number']}</td>
+                    <td>{$row['vehicle_type']}</td>
+                    <td>{$row['amount']}</td>
+                    <td>{$row['entry_time']}</td>
+                  </tr>";
+        }
+        ?>
+    </table>
+    <h3>Total Toll Collected: ₹<?php echo $total; ?></h3>
+</body>
+</html>
+
+
+-- Database Details --
+
+-- Database: toll_tax_db
+
+CREATE DATABASE IF NOT EXISTS toll_tax_db;
+USE toll_tax_db;
+
+-- Table structure for toll_records
+CREATE TABLE IF NOT EXISTS toll_records (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    vehicle_number VARCHAR(50) NOT NULL,
+    vehicle_type VARCHAR(50) NOT NULL,
+    toll_amount DECIMAL(10,2) NOT NULL,
+    entry_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Sample data
+INSERT INTO toll_records (vehicle_number, vehicle_type, toll_amount) VALUES
+('MH12AB1234', 'Car', 50.00),
+('MH14XY5678', 'Truck', 150.00),
+('MH13CD9012', 'Bike', 20.00);

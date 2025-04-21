@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head><title>Restaurant Entry</title></head>
+<body>
+<table border="1">
+    <tr><th>Dish</th><th>Quantity</th><th>Price</th></tr>
+    <tr><td>Pasta</td><td>2</td><td>$10</td></tr>
+</table>
+<button onclick="showEvent()">Click Me</button>
+<script>
+function showEvent() {
+    alert("Activity triggered for restaurant form");
+}
+</script>
+</body>
+</html>
