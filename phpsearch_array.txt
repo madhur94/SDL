@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Name Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type="text"], input[type="submit"] {
+            padding: 8px;
+            font-size: 16px;
+        }
+        .result {
+            font-weight: bold;
+            color: darkblue;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Search for an Employee</h2>
+
+<form method="POST">
+    <label for="search_name">Enter Employee Name:</label><br><br>
+    <input type="text" name="search_name" id="search_name" required>
+    <input type="submit" value="Search">
+</form>
+
+<?php
+// Indexed array with 20 employee names
+$employee_names = array(
+    "John", "Alice", "Bob", "Eva", "Mark", "Nancy", "Chris", "Laura", "Steve", "Rachel",
+    "Tom", "Diana", "Kevin", "Sophia", "James", "Lily", "Brian", "Emma", "Oliver", "Grace"
+);
+
+// Check if form was submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $search_name = trim($_POST["search_name"]);
+
+    if (in_array($search_name, $employee_names)) {
+        echo "<p class='result'>$search_name is in the employee list.</p>";
+    } else {
+        echo "<p class='result'>$search_name is NOT found in the employee list.</p>";
+    }
+}
+?>
+
+</body>
+</html>
